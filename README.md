@@ -1,28 +1,28 @@
 # Weather Lookup Script 🌦️
 
-A simple Python CLI tool to fetch **current or hourly weather conditions** at any location using latitude and longitude.
+A simple Python CLI tool (`app.py`) to fetch **current or hourly weather conditions** at any location using latitude and longitude.
 It uses the [Open-Meteo API](https://open-meteo.com/) for forecasts and can reverse-geocode coordinates into human-readable place names via **Open-Meteo Geocoding API** and **OpenStreetMap (OSM) Nominatim**.
 
 ---
 
 ## ✨ Features
 
-* Fetch **current weather** conditions for given coordinates.
-* Query **past or future weather** (nearest hour) by entering a datetime.
-* Automatic **reverse geocoding** of coordinates into location labels:
+* Get **current weather** for any location in the world.
+* Query **weather at a specific time** (nearest hour).
+* Automatic **reverse geocoding** of coordinates to city names:
 
   * Primary: Open-Meteo Geocoding
   * Fallback: OpenStreetMap Nominatim
-* Friendly weather descriptions mapped from **WMO weather codes**.
-* Handles input errors, invalid coordinates, and network failures gracefully.
-* Outputs OpenStreetMap link for quick location visualization.
+* Human-friendly weather descriptions (WMO weather codes → text).
+* Built-in input validation and error handling.
+* Provides a quick OpenStreetMap link for the location.
 
 ---
 
 ## 🛠 Requirements
 
 * Python 3.7+
-* Dependencies:
+* Install dependencies:
 
   ```bash
   pip install requests
@@ -35,62 +35,62 @@ It uses the [Open-Meteo API](https://open-meteo.com/) for forecasts and can reve
 ### 1. Run with CLI arguments
 
 ```bash
-python weather.py <latitude> <longitude>
+python app.py <latitude> <longitude>
 ```
 
-Example:
+Example (Shah Alam, Malaysia):
 
 ```bash
-python weather.py 11.2879 95.7300
+python app.py 3.0738 101.5183
 ```
 
 ### 2. Run interactively
 
-Simply run without arguments:
+Run without arguments:
 
 ```bash
-python weather.py
+python app.py
 ```
 
-You will be prompted to enter:
+You’ll be prompted to enter:
 
-* **Latitude & Longitude** (e.g., `3.081 101.585`)
+* **Latitude & Longitude** (e.g., `3.0738 101.5183`)
 * **Time** (optional):
 
   * `now` → current weather
-  * `YYYY-MM-DD HH:MM` → weather at a specific time (nearest hour, local to that location)
-  * blank → same as `now`
+  * `YYYY-MM-DD HH:MM` → weather at a specific time (local)
+  * blank → defaults to `now`
 
 ---
 
 ## 📋 Example Output
 
 ```
-Enter latitude and longitude (e.g., 3.081 101.585): 11.2879 95.7300
+Enter latitude and longitude (e.g., 3.081 101.585): 3.0738 101.5183
 Enter time to query (now for current, or YYYY-MM-DD HH:MM; leave blank for now): now
 
-Location: Port Blair, Andaman and Nicobar Islands, IN
-Coordinates: 11.28790, 95.73000
-Current weather at local time 2025-08-22T12:45:
-- Conditions: Overcast
-- Temperature: 27.8°C (feels like 29.9°C)
-- Humidity: 81%    Pressure: 1008.9 hPa
-- Wind: 9.4 km/h at 210°
-- Cloud cover: 100%    Precipitation: 0.0 mm
-- Map: https://www.openstreetmap.org/?mlat=11.287900&mlon=95.730000#map=12/11.287900/95.730000
+Location: Shah Alam, Selangor, MY
+Coordinates: 3.07380, 101.51830
+Current weather at local time 2025-08-22T15:00:
+- Conditions: Partly cloudy
+- Temperature: 32.1°C (feels like 35.0°C)
+- Humidity: 66%    Pressure: 1007.2 hPa
+- Wind: 11.2 km/h at 180°
+- Cloud cover: 40%    Precipitation: 0.0 mm
+- Map: https://www.openstreetmap.org/?mlat=3.073800&mlon=101.518300#map=12/3.073800/101.518300
 ```
 
 ---
 
 ## ⚠️ Notes
 
-* The script queries **Open-Meteo Forecast API** for current/forecasted data.
-  For historical weather beyond forecast availability, use [Open-Meteo Archive API](https://open-meteo.com/en/docs).
-* Coordinates must be valid:
+* Forecast coverage is limited to the Open-Meteo API’s available data range.
+  For historical weather beyond forecasts, use [Open-Meteo Archive API](https://open-meteo.com/en/docs).
+* Valid coordinate ranges:
 
   * Latitude: `-90` to `90`
   * Longitude: `-180` to `180`
-* Please update the `USER_AGENT` string in the script with your contact information before heavy use, as OSM Nominatim requires this.
+* Please update the `USER_AGENT` string in the script with your contact info before frequent queries, as required by OSM Nominatim.
 
 ---
 
